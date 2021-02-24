@@ -2,107 +2,124 @@ import React, { Component } from "react";
 import { Container, Row, Col, Button, InputGroup, FormControl, Image } from 'react-bootstrap';
 
 class Signup extends Component {
-    state = {
-        first_name:'',first_name_err:'',
-        middle_name:'',middle_name_err:'',
-        last_name:'',last_name_err:'',
-        dob:'',dob_err:'',
-        gender:'',gender_err:'',
-        father_name:'',father_name_err:'',
-        mother_name:'',mother_name_err:'',
-        phone_no:'',phone_no_err:'',
-        email:'',email_err:'',
-        password:'',password_err:'',
-        confirm_password:'',confirm_password_err:'',
-        checkValid:true
+    constructor() {
+        super();
+        this.state = {
+            first_name: '', first_name_err: '',
+            middle_name: '', middle_name_err: '',
+            last_name: '', last_name_err: '',
+            dob: '', dob_err: '',
+            gender: '', gender_err: '',
+            father_name: '', father_name_err: '',
+            mother_name: '', mother_name_err: '',
+            phone_no: '', phone_no_err: '', phone_no_touched: false,
+            email: '', email_err: '', email_touched: false,
+            password: '', password_err: '',
+            confirm_password: '', confirm_password_err: '',
+            btnVisible: true
+        }
     }
 
-    valid(){
-        const {checkValid,first_name,middle_name,last_name,dob,gender,father_name,mother_name,phone_no,email,password,confirm_password} = this.state;
-        if(first_name == ''){
+    valid() {
+        const {first_name, middle_name, last_name, dob, gender, father_name, mother_name, phone_no, email, password, confirm_password } = this.state;
+        let checkValid = true;
+        if (first_name == '') {
             this.setState({
-                first_name_err:'This field is required.',
-                checkValid:false
+                first_name_err: 'This field is required.'
             })
+            checkValid = false
         }
-        if(middle_name == ''){
+
+        if (last_name == '') {
             this.setState({
-                middle_name_err:'This field is required.',
-                checkValid:false
+                last_name_err: 'This field is required.'
+            })
+            checkValid = false
+        }
+        if (dob == '') {
+            this.setState({
+                dob_err: 'This field is required.'
+            })
+            checkValid = false
+        }
+
+        if (gender == '') {
+            this.setState({
+                gender_err: 'This field is required.'
+            })
+            checkValid = false
+        }
+        if (father_name == '') {
+            this.setState({
+                father_name_err: 'This field is required.'
+            })
+            checkValid = false
+        }
+
+        if (mother_name == '') {
+            this.setState({
+                mother_name_err: 'This field is required.'
+            })
+            checkValid = false
+        }
+
+        if (phone_no == '') {
+            this.setState({
+                phone_no_err: 'This field is required.'
+            })
+        } else if (phone_no.length != 10) {
+            this.setState({
+                phone_no_err: 'Please enter valid phone no.'
+            })
+            checkValid = false
+        }
+
+        if (email == '') {
+            this.setState({
+                email_err: 'This field is required.'
+            })
+        } else if (!email.includes('@')) {
+            this.setState({
+                email_err: 'Please enter valid email id.'
+            })
+            checkValid = false
+        }
+
+        if (password == '') {
+            this.setState({
+                password_err: 'This field is required.'
             })
         }
 
-        if(last_name == ''){
+        if (confirm_password == '') {
             this.setState({
-                last_name_err:'This field is required.',
-                checkValid:false
+                confirm_password_err: 'This field is required.'
             })
+            checkValid = false
         }
-        if(dob == ''){
+        else if (password != confirm_password) {
             this.setState({
-                dob_err:'This field is required.',
-                checkValid:false
+                confirm_password_err: 'Password mismatch.'
             })
+            checkValid = false
         }
-
-        if(gender == ''){
-            this.setState({
-                gender_err:'This field is required.',
-                checkValid:false
-            })
-        }
-        if(father_name == ''){
-            this.setState({
-                father_name_err:'This field is required.',
-                checkValid:false
-            })
-        }
-
-        if(mother_name == ''){
-            this.setState({
-                mother_name_err:'This field is required.',
-                checkValid:false
-            })
-        }
-
-        if(phone_no == ''){
-            this.setState({
-                phone_no_err:'This field is required.',
-                checkValid:false
-            })
-        }
-        if(email == ''){
-            this.setState({
-                email_err:'This field is required.',
-                checkValid:false
-            })
-        }
-        if(password == ''){
-            this.setState({
-                password_err:'This field is required.',
-                checkValid:false
-            })
-        }
-
-        if(password != confirm_password){
-            this.setState({
-                confirm_password_err:'Passwords Don\'t Match',
-                checkValid:false
-            })
-        }
-        return checkValid;   
+        return checkValid;
     }
 
-    submit(){
-        console.log(this.state);
-        console.log(this.valid());
-        if(this.valid){
-            console.log('submit');
+
+    submit() {
+        if (this.valid() == true) {
+            const { first_name, middle_name, last_name, dob, gender, father_name, mother_name, phone_no, email, password, confirm_password } = this.state;
+            const data = {
+                first_name, middle_name, last_name, dob, gender, father_name, mother_name, phone_no, email, password, confirm_password
+            }
+            console.log(data);
         }
     }
 
     render() {
-        console.log(this.state.first_name_err);
+        const { phone_no, email } = this.state;
+
         return (
             <>
                 <Container className="shadow signup">
@@ -119,11 +136,11 @@ class Signup extends Component {
                                     placeholder="First Name"
                                     aria-label="First Name"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({first_name:e.target.value})}
+                                    onChange={e => this.setState({ first_name: e.target.value })}
                                 />
                                 {this.state.first_name_err != '' ? <div className="error">{this.state.first_name_err}</div> : null}
                             </div>
-                            
+
                         </Col>
                         <Col sm={12} md={4}>
                             <div className="mb-2">
@@ -132,7 +149,7 @@ class Signup extends Component {
                                     placeholder="Middle Name"
                                     aria-label="Middle Name"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({middle_name:e.target.value})}
+                                    onChange={e => this.setState({ middle_name: e.target.value })}
                                 />
                                 {this.state.middle_name_err != '' ? <div className="error">{this.state.middle_name_err}</div> : null}
                             </div>
@@ -144,7 +161,7 @@ class Signup extends Component {
                                     placeholder="Last Name"
                                     aria-label="Last Name"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({last_name:e.target.value})}
+                                    onChange={e => this.setState({ last_name: e.target.value })}
                                 />
                                 {this.state.last_name_err != '' ? <div className="error">{this.state.last_name_err}</div> : null}
                             </div>
@@ -159,14 +176,14 @@ class Signup extends Component {
                                     placeholder="Date of Birth"
                                     aria-label="Date of Birth"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({dob:e.target.value})}
+                                    onChange={e => this.setState({ dob: e.target.value })}
                                 />
                                 {this.state.dob_err != '' ? <div className="error">{this.state.dob_err}</div> : null}
                             </div>
                         </Col>
                         <Col sm={12} md={4}>
                             <div className="mb-2">
-                                <FormControl as="select" onChange={e=>this.setState({gender:e.target.value})}>
+                                <FormControl as="select" onChange={e => this.setState({ gender: e.target.value })}>
                                     <option value="">Select Gender</option>
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>
@@ -186,7 +203,7 @@ class Signup extends Component {
                                     placeholder="Father's Name"
                                     aria-label="Father's Name"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({father_name:e.target.value})}
+                                    onChange={e => this.setState({ father_name: e.target.value })}
                                 />
                                 {this.state.father_name_err != '' ? <div className="error">{this.state.father_name_err}</div> : null}
                             </div>
@@ -199,7 +216,7 @@ class Signup extends Component {
                                     placeholder="Mother's Name"
                                     aria-label="Mother's Name"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({mother_name:e.target.value})}
+                                    onChange={e => this.setState({ mother_name: e.target.value })}
                                 />
                                 {this.state.mother_name_err != '' ? <div className="error">{this.state.mother_name_err}</div> : null}
                             </div>
@@ -217,9 +234,11 @@ class Signup extends Component {
                                     placeholder="Phone No."
                                     aria-label="Phone No."
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({phone_no:e.target.value})}
+                                    onChange={e => this.setState({ phone_no: e.target.value, phone_no_touched: true })}
                                 />
-                                {this.state.phone_no_err != '' ? <div className="error">{this.state.phone_no_err}</div> : null}
+                                {this.state.phone_no_touched == true && phone_no.length != 10 ? <div className="error">Please enter valid phone no.</div>
+                                    : this.state.phone_no_err != '' ? <div className="error">{this.state.phone_no_err}</div>
+                                        : null}
                             </div>
                         </Col>
 
@@ -230,9 +249,11 @@ class Signup extends Component {
                                     placeholder="Email Id"
                                     aria-label="Email Id"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({email:e.target.value})}
+                                    onChange={e => this.setState({ email: e.target.value, email_touched: true })}
                                 />
-                                {this.state.email_err != '' ? <div className="error">{this.state.email_err}</div> : null}
+                                {this.state.email_touched == true && !email.includes('@') ? <div className="error">Please enter valid email id.</div>
+                                    : this.state.email_err != '' ? <div className="error">{this.state.email_err}</div>
+                                        : null}
                             </div>
                         </Col>
                         <Col sm={12} md={4}></Col>
@@ -246,7 +267,7 @@ class Signup extends Component {
                                     placeholder="Password"
                                     aria-label="Password"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({password:e.target.value})}
+                                    onChange={e => this.setState({ password: e.target.value })}
                                 />
                                 {this.state.password_err != '' ? <div className="error">{this.state.password_err}</div> : null}
                             </div>
@@ -259,7 +280,7 @@ class Signup extends Component {
                                     placeholder="Confirm Password"
                                     aria-label="Confirm Password"
                                     aria-describedby="basic-addon1"
-                                    onChange={e=>this.setState({confirm_password:e.target.value})}
+                                    onChange={e => this.setState({ confirm_password: e.target.value })}
                                 />
                                 {this.state.confirm_password_err != '' ? <div className="error">{this.state.confirm_password_err}</div> : null}
                             </div>
@@ -270,7 +291,7 @@ class Signup extends Component {
 
                     <Row>
                         <Col md={6}>
-                            <Button onClick={()=>this.submit()} variant="primary" block>Submit</Button>
+                            <Button onClick={() => this.submit()} variant="primary" block>Submit</Button>
                         </Col>
                     </Row>
                 </Container>

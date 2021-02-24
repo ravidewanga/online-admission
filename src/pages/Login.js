@@ -26,7 +26,7 @@ class Login extends Component {
                     </InputGroup>
 
                     <div className="float-right">
-                        <p><a href={'/sign-up'}>Forgot password?</a></p>
+                        <p><a href={'/forgot-password'}>Forgot password?</a></p>
                     </div>
 
                     <Button variant="primary" block>Login</Button>
