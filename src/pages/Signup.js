@@ -15,7 +15,7 @@ class Signup extends Component {
             phone_no: '',phone_no_touched:false,
             email: '',email_touched:false,
             password: '',password_touched:false,
-            confirm_password: '',confirm_password:false,
+            confirm_password: '',confirm_password_touched:false,
             btnVisible: true
         }
     }
@@ -66,6 +66,23 @@ class Signup extends Component {
         return formValidate;
     }
 
+    evenHandler = (event) =>{
+        const field_name = event.target.name;
+        const field_val = event.target.value;
+        
+        console.log(field_name);
+
+        let val_upperCase = field_val.toUpperCase();
+        if(field_name == 'password' ||  field_name == 'confirm_password' || field_name == 'email'){
+            val_upperCase = field_val;    
+        }
+        this.setState({
+            [field_name]:val_upperCase,
+            [field_name+'_touched']:true
+        })
+    }
+
+
     submit = () =>{
         const checkValid = this.valid();
         if(checkValid){
@@ -91,7 +108,9 @@ class Signup extends Component {
                                     placeholder="First Name"
                                     name="first_name"
                                     id="first_name"
-                                    onChange={e => this.setState({ first_name: e.target.value,first_name_touched:true })}
+                                    value={first_name}
+                                    //onChange={e => this.setState({ first_name: e.target.value,first_name_touched:true })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.first_name_touched== true && first_name == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -104,7 +123,9 @@ class Signup extends Component {
                                     placeholder="Middle Name"
                                     name="middle_name"
                                     id="middle_name"
-                                    onChange={e => this.setState({ middle_name: e.target.value })}
+                                    value={middle_name}
+                                    // onChange={e => this.setState({ middle_name: e.target.value })}
+                                    onChange={this.evenHandler}
                                 />
                             </div>
                         </Col>
@@ -115,7 +136,9 @@ class Signup extends Component {
                                     placeholder="Last Name"
                                     name="last_name"
                                     id="last_name"
-                                    onChange={e => this.setState({ last_name: e.target.value })}
+                                    value={last_name}
+                                    // onChange={e => this.setState({ last_name: e.target.value })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.last_name_touched== true && last_name == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -130,7 +153,9 @@ class Signup extends Component {
                                     placeholder="Date of Birth"
                                     name="dob"
                                     id="dob"
-                                    onChange={e => this.setState({ dob: e.target.value })}
+                                    value={dob}
+                                    // onChange={e => this.setState({ dob: e.target.value })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.dob_touched== true && dob == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -140,7 +165,10 @@ class Signup extends Component {
                                 <FormControl as="select"
                                     name="gender"
                                     id="gender"
-                                    onChange={e => this.setState({ gender: e.target.value })}>
+                                    value={gender}
+                                    // onChange={e => this.setState({ gender: e.target.value })}
+                                    onChange={this.evenHandler}
+                                >
                                     <option value="">Select Gender</option>
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>
@@ -160,7 +188,9 @@ class Signup extends Component {
                                     placeholder="Father's Name"
                                     name="father_name"
                                     id="father_name"
-                                    onChange={e => this.setState({ father_name: e.target.value })}
+                                    value={father_name}
+                                    // onChange={e => this.setState({ father_name: e.target.value })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.father_name_touched== true && father_name == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -173,7 +203,9 @@ class Signup extends Component {
                                     placeholder="Mother's Name"
                                     name="mother_name"
                                     id="mother_name"
-                                    onChange={e => this.setState({ mother_name: e.target.value })}
+                                    value={mother_name}
+                                    // onChange={e => this.setState({ mother_name: e.target.value })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.mother_name_touched== true && mother_name == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -191,7 +223,9 @@ class Signup extends Component {
                                     placeholder="Phone No."
                                     name="phone_no"
                                     id="phone_no"
-                                    onChange={e => this.setState({ phone_no: e.target.value, phone_no_touched: true })}
+                                    value={phone_no}
+                                    // onChange={e => this.setState({ phone_no: e.target.value, phone_no_touched: true })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.phone_no_touched== true && phone_no == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -204,7 +238,9 @@ class Signup extends Component {
                                     placeholder="Email Id"
                                     name="email"
                                     id="email"
-                                    onChange={e => this.setState({ email: e.target.value, email_touched: true })}
+                                    value={email}
+                                    // onChange={e => this.setState({ email: e.target.value, email_touched: true })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.email_touched== true && email == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -220,7 +256,9 @@ class Signup extends Component {
                                     placeholder="Password"
                                     name="password"
                                     id="password"
-                                    onChange={e => this.setState({ password: e.target.value })}
+                                    value={password}
+                                    // onChange={e => this.setState({ password: e.target.value })}
+                                    onChange={this.evenHandler}
                                 />
                                 {this.state.password_touched== true && password == '' ? <div className="error">This field is required.</div> : null}
                             </div>
@@ -233,7 +271,9 @@ class Signup extends Component {
                                     placeholder="Confirm Password"
                                     name="confirm_password"
                                     id="confirm_password"
-                                    onChange={e => this.setState({ confirm_password: e.target.value,confirm_password_touched:true })}
+                                    value={confirm_password}
+                                    // onChange={e => this.setState({ confirm_password: e.target.value,confirm_password_touched:true })}
+                                    onChange={this.evenHandler}
                                 />
                                 {
                                     this.state.confirm_password_touched == true && confirm_password == '' ? <div className="error">This field is required.</div> 
