@@ -6,13 +6,6 @@ const axios = require('axios');
 
 
 const required = val => val && val.length;
-const usernameValidate = (val)=>{
-    if(val == ''){
-        return "This filed is required."
-    }else if(val.length <= 3){
-        return "Username should be 3 characters."
-    }
-}
 const unameMinLength = val => val && val.length >= 3;
 const passMinLength = val => val && val.length >= 8;
 const passMaxLength = val => val && val.length <= 16;
@@ -77,7 +70,7 @@ class Login extends Component {
                                 show="touched"
                                 messages={{
                                     required: "Password is required",
-                                    passMinLength:"Password should be 8 correctors.",
+                                    passMinLength:"Password should be 8 characters.",
                                     passMaxLength:"Password should be less then 16 characters.",
                                 }}
                             />
